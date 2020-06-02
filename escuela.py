@@ -15,26 +15,28 @@
 # Se deben cargar distintos alumnos y profesores, que los alumnos den exámenes que toman los profesores y que el resultado
 # sea una nota. El alumno siempre debe tener un promedio (al principio las tres notas son 0).
 
-
-alumnos = []
-
-class Alumno():
+class Persona():
     def __init__(self, nombre, apellido):
+        self.apellido = apellido
+        self.nombre = nombre
+
+
+class Alumno(Persona):
+    def __init__(self, nombre, apellido):
+        Persona.__init__(self,nombre,apellido)
         self.nota_geo = 0
         self.nota_lengua = 0
-        self.nombre = nombre
-        self.apellido = apellido
         self.nota_mate = 0
 
     def promedio(self):
         return (self.nota_lengua + self.nota_geo + self.nota_mate) / 3
 
 
-class Profesor():
+class Profesor(Persona):
     def __init__(self, nombre, apellido, materia):
+        Persona.__init__(self, nombre, apellido)
         self.materia = materia
-        self.apellido = apellido
-        self.nombre = nombre
+
 
     def tomar_examen(self, alumno):
         nota = int(input('Ingrese una nota: '))
