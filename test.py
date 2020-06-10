@@ -10,8 +10,6 @@ from selenium import webdriver
 from pageindex import Pageindex
 from pageitems import Pageitems
 from pageitem import Pageitem
-import time
-
 
 class SearchCases(unittest.TestCase):
 
