@@ -7,9 +7,10 @@
 
 import unittest
 from selenium import webdriver
-import time
 from pageindex import Pageindex
+from pageitems import Pageitems
 from pageitem import Pageitem
+import time
 
 
 class SearchCases(unittest.TestCase):
@@ -18,14 +19,17 @@ class SearchCases(unittest.TestCase):
         self.driver = webdriver.Chrome('Chromedriver.exe')
         self.driver.get('http://automationpractice.com/index.php')
         self.IndexPage = Pageindex(self.driver)
+        self.ItemsPage = Pageitems(self.driver)
         self.ItemPage = Pageitem(self.driver)
+        self.driver.implicitly_wait(5)
 
-    def test_our_price_display(self):
+    def test_tshirts_quantity(self):
         self.IndexPage.search('t-shirts')
-        time.sleep(2)
-        self.IndexPage.quantity('25')
-        self.assertEqual(self.ItemPage.return_input_quantity_text(), '28')
-        time.sleep(2)
+        self.ItemsPage.click_button_orange()
+        self.ItemPage.enter_quantity('25')
+        self.ItemPage.add_elements(3)
+        number = self.ItemPage.get_number_of_element()
+        self.assertEqual(number, '28')
 
     def tearDown(self):
         self.driver.close()
